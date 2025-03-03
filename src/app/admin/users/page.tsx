@@ -1,39 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle 
-} from "@/components/ui/dialog";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { 
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { Edit, MoreVertical, Plus, Trash2, UserPlus, Lock, Shield } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Edit, MoreVertical, UserPlus, Users } from "lucide-react";
 
 // Mock user data
 const initialUsers = [
@@ -193,64 +165,69 @@ export default function UsersAdmin() {
       </div>
 
       <div className="border rounded-md">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">Last Login</TableHead>
-              <TableHead className="w-[100px]">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+        <div className="p-4">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-bold">Users</h2>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreVertical className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="grid gap-4">
             {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell className="font-medium">{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
-                    {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadgeColor(user.status)}`}>
-                    {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
-                  </span>
-                </TableCell>
-                <TableCell className="hidden md:table-cell">{user.lastLogin}</TableCell>
-                <TableCell>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 p-0">
-                        <span className="sr-only">Open menu</span>
-                        <MoreVertical className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => openEditDialog(user)}>
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => openResetPasswordDialog(user)}>
-                        <Lock className="mr-2 h-4 w-4" />
-                        Reset Password
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => openDeleteDialog(user)}
-                        className="text-red-600 focus:text-red-600"
-                      >
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
+              <Card key={user.id}>
+                <CardHeader>
+                  <CardTitle>{user.name}</CardTitle>
+                  <CardDescription>{user.email}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex gap-2">
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
+                      {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                    </span>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadgeColor(user.status)}`}>
+                      {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+                    </span>
+                  </div>
+                  <div className="mt-4">
+                    <Tabs defaultValue="details">
+                      <TabsList>
+                        <TabsTrigger value="details">Details</TabsTrigger>
+                        <TabsTrigger value="activity">Activity</TabsTrigger>
+                      </TabsList>
+                      <TabsContent>
+                        <div value="details">
+                          <p className="text-sm text-muted-foreground">
+                            Last login: {user.lastLogin}
+                          </p>
+                        </div>
+                        <div value="activity">
+                          <p className="text-sm text-muted-foreground">
+                            No activity found.
+                          </p>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+                  </div>
+                </CardContent>
+                <div className="flex justify-end p-4 border-t border-gray-200">
+                  <Button variant="ghost" onClick={() => openEditDialog(user)}>
+                    <Edit className="mr-2 h-4 w-4" />
+                    Edit
+                  </Button>
+                  <Button variant="ghost" onClick={() => openResetPasswordDialog(user)}>
+                    <Lock className="mr-2 h-4 w-4" />
+                    Reset Password
+                  </Button>
+                  <Button variant="ghost" onClick={() => openDeleteDialog(user)}>
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Delete
+                  </Button>
+                </div>
+              </Card>
             ))}
-          </TableBody>
-        </Table>
+          </div>
+        </div>
       </div>
 
       {/* Add User Dialog */}

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -97,12 +98,12 @@ export default function AdminLogin() {
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <a 
+                <Link 
                   href="#" 
                   className="text-sm text-[#fddb24] hover:underline"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <Input
                 id="password"
@@ -127,11 +128,11 @@ export default function AdminLogin() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center">
-          <p className="text-sm text-muted-foreground">
-            <a href="/" className="text-[#fddb24] hover:underline">
+          <div className="mt-4 text-center">
+            <Link href="/" className="text-sm text-gray-600 hover:text-gray-800">
               Return to website
-            </a>
-          </p>
+            </Link>
+          </div>
         </CardFooter>
       </Card>
     </div>

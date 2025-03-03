@@ -27,17 +27,21 @@ interface HeroProps {
 }
 
 export function Hero({
-  badge,
-  title,
-  description,
-  image = "/images/hero-image.jpg",
-  imageAlt = "Hero image",
+  className,
   primaryAction,
   secondaryAction,
-  className,
   children,
-  testimonials,
+  ...props
 }: HeroProps) {
+  const {
+    badge,
+    title,
+    description,
+    image,
+    imageAlt,
+    testimonials = [],
+  } = props;
+
   return (
     <section className={cn("relative overflow-hidden py-16 md:py-24 min-h-[90vh] flex items-center justify-center bg-black text-white", className)}>
       {/* Background elements */}
@@ -58,29 +62,19 @@ export function Hero({
         <div className="grid gap-8 lg:grid-cols-3 items-center">
           {/* Left testimonials */}
           <div className="hidden lg:flex flex-col space-y-12 items-end text-right">
-            <div className="max-w-xs">
-              <div className="text-[#fddb24] font-semibold mb-1">Faith</div>
-              <div className="flex justify-end mb-2">
-                {[1, 2, 3, 4, 5].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#fddb24] text-[#fddb24]" />
-                ))}
+            {testimonials.slice(0, 2).map((testimonial, index) => (
+              <div key={index} className="max-w-xs">
+                <div className="text-[#fddb24] font-semibold mb-1">{testimonial.name}</div>
+                <div className="flex justify-end mb-2">
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-[#fddb24] text-[#fddb24]" />
+                  ))}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  &quot;{testimonial.quote}&quot;
+                </div>
               </div>
-              <p className="text-white/80 text-sm italic">
-                "The pain is nothing compared to getting a new tattoo."
-              </p>
-            </div>
-            
-            <div className="max-w-xs">
-              <div className="text-[#fddb24] font-semibold mb-1">Stephen</div>
-              <div className="flex justify-end mb-2">
-                {[1, 2, 3, 4, 5].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#fddb24] text-[#fddb24]" />
-                ))}
-              </div>
-              <p className="text-white/80 text-sm italic">
-                "It feels good to see my tattoo fading away after each treatment."
-              </p>
-            </div>
+            ))}
           </div>
           
           {/* Center content */}
@@ -138,29 +132,19 @@ export function Hero({
           
           {/* Right testimonials */}
           <div className="hidden lg:flex flex-col space-y-12 items-start text-left">
-            <div className="max-w-xs">
-              <div className="text-[#fddb24] font-semibold mb-1">Gabriel</div>
-              <div className="flex justify-start mb-2">
-                {[1, 2, 3, 4, 5].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#fddb24] text-[#fddb24]" />
-                ))}
+            {testimonials.slice(2, 4).map((testimonial, index) => (
+              <div key={index} className="max-w-xs">
+                <div className="text-[#fddb24] font-semibold mb-1">{testimonial.name}</div>
+                <div className="flex justify-start mb-2">
+                  {[1, 2, 3, 4, 5].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-[#fddb24] text-[#fddb24]" />
+                  ))}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  &quot;{testimonial.quote}&quot;
+                </div>
               </div>
-              <p className="text-white/80 text-sm italic">
-                "The service is great. Trustful, fast and very professional."
-              </p>
-            </div>
-            
-            <div className="max-w-xs">
-              <div className="text-[#fddb24] font-semibold mb-1">Isabelle</div>
-              <div className="flex justify-start mb-2">
-                {[1, 2, 3, 4, 5].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-[#fddb24] text-[#fddb24]" />
-                ))}
-              </div>
-              <p className="text-white/80 text-sm italic">
-                "Only a few sessions and my tattoo is nearly gone. I couldn't be happier with the results."
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>

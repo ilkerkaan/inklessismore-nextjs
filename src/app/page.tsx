@@ -1,13 +1,12 @@
-import React from "react";
-import Image from "next/image";
-import { MainLayout } from "@/components/layout/main-layout";
-import { Hero } from "@/components/ui/hero";
-import { Section, SectionHeader } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { PricingCard, PricingGrid } from "@/components/ui/pricing-card";
-import { TestimonialGrid } from "@/components/ui/testimonial";
-import { ArrowRight, Check } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Section, SectionHeader } from "@/components/ui/section";
+import { FeatureCard } from "@/components/ui/feature-card";
+import { Testimonial } from "@/components/ui/testimonial";
+import { MainLayout } from "@/components/layout/main-layout";
+import { HeroSection } from "@/components/ui/hero-section";
+import { Check } from "lucide-react";
+import Link from "next/link";
 
 const features = [
   {
@@ -110,7 +109,7 @@ export default function Home() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <Hero
+      <HeroSection
         primaryAction={{
           text: "Book a Free Consultation",
           href: "/book"
@@ -136,7 +135,7 @@ export default function Home() {
                 <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
                 <p className="text-muted-foreground mb-4">{feature.description}</p>
                 <Button asChild size="sm" variant="outline">
-                  <a href={feature.href}>Learn More</a>
+                  <Link href={feature.href}>Learn More</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -152,11 +151,9 @@ export default function Home() {
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
           <div className="relative overflow-hidden rounded-xl group">
-            <Image 
+            <img 
               src="/images/before-after-1.jpg" 
               alt="Before and After Tattoo Removal" 
-              width={400} 
-              height={300}
               className="w-full h-auto transition-transform duration-500 group-hover:scale-105" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
@@ -167,11 +164,9 @@ export default function Home() {
             </div>
           </div>
           <div className="relative overflow-hidden rounded-xl group">
-            <Image 
+            <img 
               src="/images/before-after-2.jpg" 
               alt="Before and After Tattoo Removal" 
-              width={400} 
-              height={300}
               className="w-full h-auto transition-transform duration-500 group-hover:scale-105" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
@@ -182,11 +177,9 @@ export default function Home() {
             </div>
           </div>
           <div className="relative overflow-hidden rounded-xl group">
-            <Image 
+            <img 
               src="/images/before-after-3.jpg" 
               alt="Before and After Tattoo Removal" 
-              width={400} 
-              height={300}
               className="w-full h-auto transition-transform duration-500 group-hover:scale-105" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
@@ -250,7 +243,23 @@ export default function Home() {
           description="We offer competitive pricing with no hidden fees. Choose the package that best suits your needs."
           align="center"
         />
-        <PricingGrid pricing={pricing} className="max-w-5xl mx-auto" />
+        <div className="max-w-5xl mx-auto">
+          {pricing.map((price, index) => (
+            <div key={index} className="bg-background p-6 rounded-lg shadow-sm mb-6">
+              <h3 className="text-lg font-bold mb-2">{price.title}</h3>
+              <p className="text-muted-foreground">{price.description}</p>
+              <p className="text-lg font-bold">{price.price}</p>
+              <ul className="list-disc pl-4 mb-4">
+                {price.features.map((feature, index) => (
+                  <li key={index} className="text-muted-foreground">{feature}</li>
+                ))}
+              </ul>
+              <Button asChild variant="outline">
+                <Link href={price.buttonHref}>{price.buttonText}</Link>
+              </Button>
+            </div>
+          ))}
+        </div>
       </Section>
 
       {/* Testimonials Section */}
@@ -260,10 +269,17 @@ export default function Home() {
           description="Don't just take our word for it. Here's what our clients have to say about their experience with Inkless Is More."
           align="center"
         />
-        <TestimonialGrid testimonials={testimonials.slice(0, 3)} />
+        <div className="max-w-5xl mx-auto">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-background p-6 rounded-lg shadow-sm mb-6">
+              <p className="text-lg font-bold mb-2">{testimonial.quote}</p>
+              <p className="text-muted-foreground">{testimonial.author}</p>
+            </div>
+          ))}
+        </div>
         <div className="mt-10 text-center">
           <Button asChild variant="outline">
-            <a href="/testimonials">View All Testimonials</a>
+            <Link href="/testimonials">View All Testimonials</Link>
           </Button>
         </div>
       </Section>
@@ -280,10 +296,10 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <a href="/book">Book a Free Consultation</a>
+                <Link href="/book">Book a Free Consultation</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <a href="/services">View Our Services</a>
+                <Link href="/services">View Our Services</Link>
               </Button>
             </div>
           </div>
@@ -309,7 +325,7 @@ export default function Home() {
             <div className="bg-background p-6 rounded-lg shadow-sm">
               <h3 className="font-bold">Satisfaction Guarantee</h3>
               <p className="text-sm text-muted-foreground mt-2">
-                We're committed to your satisfaction and results.
+                We're dedicated to helping you move forward without the reminders of your past.
               </p>
             </div>
           </div>

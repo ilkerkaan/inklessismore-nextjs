@@ -1,33 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle 
-} from "@/components/ui/dialog";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
 import { Card, CardContent } from "@/components/ui/card";
-import { Edit, MoreVertical, Plus, Trash2, Image as ImageIcon } from "lucide-react";
+import { Edit, Plus, Trash2, MoreVertical, ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 // Mock service data
 const initialServices = [
@@ -146,10 +123,12 @@ export default function ServicesAdmin() {
           <Card key={service.id} className="overflow-hidden">
             <div className="aspect-video relative bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
               {service.image ? (
-                <img 
+                <Image 
                   src={service.image} 
                   alt={service.name} 
-                  className="object-cover w-full h-full"
+                  width={64}
+                  height={64}
+                  className="h-full w-full object-cover"
                 />
               ) : (
                 <ImageIcon className="h-12 w-12 text-gray-400" />

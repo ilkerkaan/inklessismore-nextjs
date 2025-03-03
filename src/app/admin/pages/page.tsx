@@ -1,39 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle 
-} from "@/components/ui/dialog";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardFooter, 
-  CardHeader, 
-  CardTitle 
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Edit, Eye, FileText, MoreVertical, Plus } from "lucide-react";
 
@@ -212,25 +181,9 @@ export default function PagesAdmin() {
                         <div className="text-xs opacity-70">{page.slug}</div>
                       </div>
                     </div>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <MoreVertical className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => handleOpenEditDialog(page)}>
-                          <Edit className="mr-2 h-4 w-4" />
-                          Edit Details
-                        </DropdownMenuItem>
-                        <DropdownMenuItem>
-                          <Eye className="mr-2 h-4 w-4" />
-                          <a href={page.slug} target="_blank" rel="noopener noreferrer">
-                            View Page
-                          </a>
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -276,7 +229,7 @@ export default function PagesAdmin() {
                         <div className="bg-gray-100 dark:bg-gray-800 p-2 rounded text-xs mb-2">
                           HTML Editor - {section} Section
                         </div>
-                        <Textarea
+                        <textarea
                           value={sectionContent}
                           onChange={(e) => setSectionContent(e.target.value)}
                           className="font-mono text-sm"
@@ -321,7 +274,7 @@ export default function PagesAdmin() {
               <label htmlFor="title" className="text-sm font-medium">
                 Page Title
               </label>
-              <Input
+              <input
                 id="title"
                 value={editedPageTitle}
                 onChange={(e) => setEditedPageTitle(e.target.value)}
@@ -331,7 +284,7 @@ export default function PagesAdmin() {
               <label htmlFor="slug" className="text-sm font-medium">
                 URL Slug
               </label>
-              <Input
+              <input
                 id="slug"
                 value={editedPageSlug}
                 onChange={(e) => setEditedPageSlug(e.target.value)}

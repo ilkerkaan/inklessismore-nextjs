@@ -363,9 +363,9 @@ export default function TestimonialsAdmin() {
           {currentTestimonial && (
             <div className="py-4 border-t border-b my-4">
               <p className="font-medium">{currentTestimonial.name}</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                "{currentTestimonial.quote}"
-              </p>
+              <div className="text-sm text-gray-500 mt-1">
+                &quot;{currentTestimonial.quote}&quot;
+              </div>
             </div>
           )}
           <DialogFooter>

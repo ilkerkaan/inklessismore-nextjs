@@ -1,42 +1,21 @@
 "use client"
 
 import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { CalendarIcon, CheckCircle } from "lucide-react"
-import { format } from "date-fns"
-
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
+import { Calendar } from "@/components/ui/calendar"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Checkbox } from "@/components/ui/checkbox"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Calendar } from "@/components/ui/calendar"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { toast } from "sonner"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { CalendarIcon, CheckCircle } from "lucide-react"
+import { format } from "date-fns"
+import Link from "next/link"
 import { MainLayout } from "@/components/layout/main-layout"
 import { Section, SectionHeader } from "@/components/ui/section"
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Checkbox } from "@/components/ui/checkbox"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { toast } from "sonner"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -135,10 +114,10 @@ export default function BookingPage() {
             </p>
             <div className="flex gap-4 justify-center">
               <Button asChild variant="outline">
-                <a href="/">Return Home</a>
+                <Link href="/">Return Home</Link>
               </Button>
               <Button asChild>
-                <a href="/services">Explore Services</a>
+                <Link href="/services">Explore Services</Link>
               </Button>
             </div>
           </div>
@@ -419,7 +398,7 @@ export default function BookingPage() {
                             I agree to the terms and conditions
                           </FormLabel>
                           <FormDescription>
-                            By booking an appointment, you agree to our <a href="/terms" className="text-primary underline">terms and conditions</a> and <a href="/privacy" className="text-primary underline">privacy policy</a>.
+                            By booking an appointment, you agree to our <Link href="/terms" className="text-primary underline">terms and conditions</Link> and <Link href="/privacy" className="text-primary underline">privacy policy</Link>.
                           </FormDescription>
                         </div>
                       </FormItem>

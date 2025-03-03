@@ -95,7 +95,10 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500 text-sm">
-          <p> {new Date().getFullYear()} Inkless Is More. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} Inkless Is More. All rights reserved.
+            We&apos;re committed to providing the best tattoo removal services in Nairobi.
+          </p>
         </div>
       </div>
     </footer>

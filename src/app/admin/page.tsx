@@ -9,18 +9,22 @@ import { AlertCircle, Calendar, DollarSign, Users, BarChart, Package, MessageSqu
 import Link from "next/link";
 
 export default function AdminDashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      setIsAuthenticated(isLoggedIn);
-      setIsLoading(false);
-    }
+    // Check if user is authenticated
+    const checkAuth = () => {
+      const token = localStorage.getItem('adminToken');
+      if (!token) {
+        window.location.href = '/admin/login';
+        return;
+      }
+      setLoading(false);
+    };
+    checkAuth();
   }, []);
 
-  if (isLoading) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-100px)]">
         <div className="text-center">
@@ -129,6 +133,9 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               ))}
+              <div className="text-sm text-muted-foreground">
+                Don&apos;t forget to check the latest testimonials
+              </div>
             </div>
           </CardContent>
         </Card>
